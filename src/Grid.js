@@ -15,6 +15,8 @@ const Grid = () => {
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   ]);
 
+  const grid_size = 10;
+
   const [selectedShip, setSelectedShip] = useState({
     ship: null,
     rotation: "horizontal"
@@ -25,11 +27,10 @@ const Grid = () => {
   const handleSelectShip = (ship) => {
     const msg_error = document.getElementById("error_msg")
     msg_error.innerHTML = ""
-    console.log(grid);
-    setSelectedShip({
+    setSelectedShip(prevState => ({
       ship: ship,
-      rotation: "horizontal"
-    })
+      rotation: prevState.rotation
+    }))
   };
 
   const handleRotateShip = () => {
@@ -54,47 +55,77 @@ const Grid = () => {
         switch(selectedShip.ship) {
           case 'Destroyer':
             // Bateau de 3*1
-            if (newGrid[row][col] === 0 && newGrid[row][col+1] === 0 && newGrid[row][col+2] === 0) {
-              newGrid[row][col] = selectedShip.ship;
-              newGrid[row][col+1] = selectedShip.ship;
-              newGrid[row][col+2] = selectedShip.ship;
+            if (row+1 <= grid_size && col+3 <= grid_size) {
+              if (grid[row][col] === 0 && grid[row][col+1] === 0 && grid[row][col+2] === 0) {
+                newGrid[row][col] = selectedShip.ship;
+                newGrid[row][col+1] = selectedShip.ship;
+                newGrid[row][col+2] = selectedShip.ship;
+                setSelectedShip(prevState => ({
+                  ship: null,
+                  rotation: prevState.rotation
+                }));
+              }
             }
             break;
           case 'Cruiser':
             // Bateau de 3*1
-            if (newGrid[row][col] === 0 && newGrid[row][col+1] === 0 && newGrid[row][col+2] === 0){
-              newGrid[row][col] = selectedShip.ship;
-              newGrid[row][col+1] = selectedShip.ship;
-              newGrid[row][col+2] = selectedShip.ship;
+            if (row+1 <= grid_size && col+3 <= grid_size){
+              if (grid[row][col] === 0 && grid[row][col+1] === 0 && grid[row][col+2] === 0){
+                newGrid[row][col] = selectedShip.ship;
+                newGrid[row][col+1] = selectedShip.ship;
+                newGrid[row][col+2] = selectedShip.ship;
+                setSelectedShip(prevState => ({
+                  ship: null,
+                  rotation: prevState.rotation
+                }));
+              }
             }
             break;
           case 'Submarine':
             // Bateau de 2*1
-            if (newGrid[row][col] === 0 && newGrid[row][col+1] === 0){
-              newGrid[row][col] = selectedShip.ship;
-              newGrid[row][col+1] = selectedShip.ship;
+            if (row+1 <= grid_size && col+2 <= grid_size){
+              if (grid[row][col] === 0 && grid[row][col+1] === 0){
+                newGrid[row][col] = selectedShip.ship;
+                newGrid[row][col+1] = selectedShip.ship;
+                setSelectedShip(prevState => ({
+                  ship: null,
+                  rotation: prevState.rotation
+                }));
+              }
             }
             break;
           case 'Battleship':
             //Bateau de 4*1
-            if (newGrid[row][col] === 0 && newGrid[row][col+1] === 0 && newGrid[row][col+2] === 0 && newGrid[row][col+3] === 0) {
-              newGrid[row][col] = selectedShip.ship;
-              newGrid[row][col+1] = selectedShip.ship;
-              newGrid[row][col+2] = selectedShip.ship;
-              newGrid[row][col+3] = selectedShip.ship;
+            if (row+1 <= grid_size && col+4 <= grid_size) {
+              if (grid[row][col] === 0 && grid[row][col+1] === 0 && grid[row][col+2] === 0 && grid[row][col+3] === 0){
+                newGrid[row][col] = selectedShip.ship;
+                newGrid[row][col+1] = selectedShip.ship;
+                newGrid[row][col+2] = selectedShip.ship;
+                newGrid[row][col+3] = selectedShip.ship;
+                setSelectedShip(prevState => ({
+                  ship: null,
+                  rotation: prevState.rotation
+                }));
+              }
             }
             break;
           case 'Carrier':
             //Bateau de 4*2
-            if (newGrid[row][col] === 0 && newGrid[row][col+1] === 0 && newGrid[row][col+2] === 0 && newGrid[row][col+3] === 0 && newGrid[row+1][col] === 0 && newGrid[row+1][col+1] === 0 && newGrid[row+1][col+2] === 0 && newGrid[row+1][col+3] === 0) {
-              newGrid[row][col] = selectedShip.ship;
-              newGrid[row][col+1] = selectedShip.ship;
-              newGrid[row][col+2] = selectedShip.ship;
-              newGrid[row][col+3] = selectedShip.ship;
-              newGrid[row+1][col] = selectedShip.ship;
-              newGrid[row+1][col+1] = selectedShip.ship;
-              newGrid[row+1][col+2] = selectedShip.ship;
-              newGrid[row+1][col+3] = selectedShip.ship;
+            if (row+2 <= grid_size && col+4 <= grid_size) {
+              if (grid[row][col] === 0 && grid[row][col+1] === 0 && grid[row][col+2] === 0 && grid[row][col+3] === 0 && grid[row+1][col] === 0 && grid[row+1][col+1] === 0 && grid[row+1][col+2] === 0 && grid[row+1][col+3] === 0){
+                newGrid[row][col] = selectedShip.ship;
+                newGrid[row][col+1] = selectedShip.ship;
+                newGrid[row][col+2] = selectedShip.ship;
+                newGrid[row][col+3] = selectedShip.ship;
+                newGrid[row+1][col] = selectedShip.ship;
+                newGrid[row+1][col+1] = selectedShip.ship;
+                newGrid[row+1][col+2] = selectedShip.ship;
+                newGrid[row+1][col+3] = selectedShip.ship;
+                setSelectedShip(prevState => ({
+                  ship: null,
+                  rotation: prevState.rotation
+                }));
+              }
             }
             break;
           default:
@@ -104,57 +135,84 @@ const Grid = () => {
         switch(selectedShip.ship) {
           case 'Destroyer':
             // Bateau de 3*1
-            if (newGrid[row][col] === 0 && newGrid[row+1][col] === 0 && newGrid[row+2][col] === 0) {
-              newGrid[row][col] = selectedShip.ship;
-              newGrid[row+1][col] = selectedShip.ship;
-              newGrid[row+2][col] = selectedShip.ship;
+            if (row+3 <= grid_size && col+1 <= grid_size) {
+              if (grid[row][col] === 0 && grid[row+1][col] === 0 && grid[row+2][col] === 0){
+                newGrid[row][col] = selectedShip.ship;
+                newGrid[row+1][col] = selectedShip.ship;
+                newGrid[row+2][col] = selectedShip.ship;
+                setSelectedShip(prevState => ({
+                  ship: null,
+                  rotation: prevState.rotation
+                }));
+              }
             }
             break;
           case 'Cruiser':
             // Bateau de 3*1
-            if (newGrid[row][col] === 0 && newGrid[row+1][col] === 0 && newGrid[row+2][col] === 0) {
-              newGrid[row][col] = selectedShip.ship;
-              newGrid[row+1][col] = selectedShip.ship;
-              newGrid[row+2][col] = selectedShip.ship;
+            if (row+3 <= grid_size && col+1 <= grid_size) {
+              if (grid[row][col] === 0 && grid[row+1][col] === 0 && grid[row+2][col] === 0){
+                newGrid[row][col] = selectedShip.ship;
+                newGrid[row+1][col] = selectedShip.ship;
+                newGrid[row+2][col] = selectedShip.ship;
+                setSelectedShip(prevState => ({
+                  ship: null,
+                  rotation: prevState.rotation
+                }));
+              }
             }
             break;
           case 'Submarine':
             // Bateau de 2*1
-            if (newGrid[row][col] === 0 && newGrid[row+1][col] === 0){
-              newGrid[row][col] = selectedShip.ship;
-              newGrid[row+1][col] = selectedShip.ship;
+            if (row+2 <= grid_size && col+1 <= grid_size){
+              if (grid[row][col] === 0 && grid[row+1][col] === 0){
+                newGrid[row][col] = selectedShip.ship;
+                newGrid[row+1][col] = selectedShip.ship;
+                setSelectedShip(prevState => ({
+                  ship: null,
+                  rotation: prevState.rotation
+                }));
+              }
             }
             break;
           case 'Battleship':
             //Bateau de 4*1
-            if (newGrid[row][col] === 0 && newGrid[row+1][col] === 0 && newGrid[row+2][col] === 0 && newGrid[row+3][col] === 0) {
-              newGrid[row][col] = selectedShip.ship;
-              newGrid[row+1][col] = selectedShip.ship;
-              newGrid[row+2][col] = selectedShip.ship;
-              newGrid[row+3][col] = selectedShip.ship;
+            if (row+4 <= grid_size && col+1 <= grid_size) {
+              if (grid[row][col] === 0 && grid[row+1][col] === 0 && grid[row+2][col] === 0 && grid[row+3][col] === 0){
+                newGrid[row][col] = selectedShip.ship;
+                newGrid[row+1][col] = selectedShip.ship;
+                newGrid[row+2][col] = selectedShip.ship;
+                newGrid[row+3][col] = selectedShip.ship;
+                setSelectedShip(prevState => ({
+                  ship: null,
+                  rotation: prevState.rotation
+                }));
+              }
             }
             break;
           case 'Carrier':
             //Bateau de 4*2
-            if (newGrid[row][col] === 0 && newGrid[row+1][col] === 0 && newGrid[row+2][col] === 0 && newGrid[row+3][col] === 0 && newGrid[row][col+1] === 0 && newGrid[row+1][col+1] === 0 && newGrid[row+2][col+1] === 0 && newGrid[row+3][col+1] === 0) {
-              newGrid[row][col] = selectedShip.ship;
-              newGrid[row+1][col] = selectedShip.ship;
-              newGrid[row+2][col] = selectedShip.ship;
-              newGrid[row+3][col] = selectedShip.ship;
-              newGrid[row][col+1] = selectedShip.ship;
-              newGrid[row+1][col+1] = selectedShip.ship;
-              newGrid[row+2][col+1] = selectedShip.ship;
-              newGrid[row+3][col+1] = selectedShip.ship;
+            if (row+4 <= grid_size && col+2 <= grid_size) {
+              if (grid[row][col] === 0 && grid[row+1][col] === 0 && grid[row+2][col] === 0 && grid[row+3][col] === 0 && grid[row][col+1] === 0 && grid[row+1][col+1] === 0 && grid[row+2][col+1] === 0 && grid[row+3][col+1] === 0){
+                newGrid[row][col] = selectedShip.ship;
+                newGrid[row+1][col] = selectedShip.ship;
+                newGrid[row+2][col] = selectedShip.ship;
+                newGrid[row+3][col] = selectedShip.ship;
+                newGrid[row][col+1] = selectedShip.ship;
+                newGrid[row+1][col+1] = selectedShip.ship;
+                newGrid[row+2][col+1] = selectedShip.ship;
+                newGrid[row+3][col+1] = selectedShip.ship;
+                setSelectedShip(prevState => ({
+                  ship: null,
+                  rotation: prevState.rotation
+                }));
+              }
+
             }
             break;
           default:
             break;
         }
       }
-      setSelectedShip(prevState => ({
-        ship: null,
-        rotation: "horizontal"
-      }));
     }
     setGrid(newGrid);
   };
