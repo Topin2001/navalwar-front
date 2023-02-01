@@ -3,16 +3,15 @@ import React, { useState } from "react";
 
 const Grid = () => {
   const [grid, setGrid] = useState([
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
   ]);
   const [selectedShip, setSelectedShip] = useState(null);
 
@@ -21,10 +20,11 @@ const Grid = () => {
   const handleSelectShip = (ship) => {
     const msg_error = document.getElementById("error_msg")
     msg_error.innerHTML = ""
+    console.log(grid);
     setSelectedShip(ship);
   };
 
-  const handlePlaceShip = (row, col) => {
+  const handlePlaceShip = (row, col, ship) => {
     const newGrid = [...grid];
 
     if (grid[row][col] !== 0) {
@@ -35,7 +35,45 @@ const Grid = () => {
         msg_error.innerHTML = "Merci de choisir un bateau à placer !"
         return;
       }
-      newGrid[row][col] = 1;
+      switch(ship) {
+        case 'Destroyer':
+          // Bateau de 3*1
+          newGrid[row][col] = ship;
+          newGrid[row][col+1] = ship;
+          newGrid[row][col+2] = ship;
+          break;
+        case 'Cruiser':
+          // Bateau de 3*1
+          newGrid[row][col] = ship;
+          newGrid[row][col+1] = ship;
+          newGrid[row][col+2] = ship;
+          break;
+        case 'Submarine':
+          // Bateau de 2*1
+          newGrid[row][col] = ship;
+          newGrid[row][col+1] = ship;
+          break;
+        case 'Battleship':
+          //Bateau de 4*1
+          newGrid[row][col] = ship;
+          newGrid[row][col+1] = ship;
+          newGrid[row][col+2] = ship;
+          newGrid[row][col+3] = ship;
+          break;
+        case 'Carrier':
+          //Bateau de 4*2
+          newGrid[row][col] = ship;
+          newGrid[row][col+1] = ship;
+          newGrid[row][col+2] = ship;
+          newGrid[row][col+3] = ship;
+          newGrid[row+1][col] = ship;
+          newGrid[row+1][col+1] = ship;
+          newGrid[row+1][col+2] = ship;
+          newGrid[row+1][col+3] = ship;
+          break;
+        default:
+          // code block
+      }
       setSelectedShip(null);
     }
     setGrid(newGrid);
@@ -56,8 +94,8 @@ const Grid = () => {
               <div
                 className={`col ${col !== 0 ? "hit" : ""}`}
                 key={colIndex}
-                onClick={() => handlePlaceShip(rowIndex, colIndex)}
-              ></div>
+                onClick={() => handlePlaceShip(rowIndex, colIndex, selectedShip)}
+              >{grid[rowIndex][colIndex]}</div>
             ))}
           </div>
         ))}
