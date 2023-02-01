@@ -38,38 +38,48 @@ const Grid = () => {
       switch(ship) {
         case 'Destroyer':
           // Bateau de 3*1
-          newGrid[row][col] = ship;
-          newGrid[row][col+1] = ship;
-          newGrid[row][col+2] = ship;
+          if (newGrid[row][col] === 0 && newGrid[row][col+1] === 0 && newGrid[row][col+2] === 0) {
+            newGrid[row][col] = ship;
+            newGrid[row][col+1] = ship;
+            newGrid[row][col+2] = ship;
+          }
           break;
         case 'Cruiser':
           // Bateau de 3*1
-          newGrid[row][col] = ship;
-          newGrid[row][col+1] = ship;
-          newGrid[row][col+2] = ship;
+          if (newGrid[row][col] === 0 && newGrid[row][col+1] === 0 && newGrid[row][col+2] === 0){
+            newGrid[row][col] = ship;
+            newGrid[row][col+1] = ship;
+            newGrid[row][col+2] = ship;
+          }
           break;
         case 'Submarine':
           // Bateau de 2*1
-          newGrid[row][col] = ship;
-          newGrid[row][col+1] = ship;
+          if (newGrid[row][col] === 0 && newGrid[row][col+1] === 0){
+            newGrid[row][col] = ship;
+            newGrid[row][col+1] = ship;
+          }
           break;
         case 'Battleship':
           //Bateau de 4*1
-          newGrid[row][col] = ship;
-          newGrid[row][col+1] = ship;
-          newGrid[row][col+2] = ship;
-          newGrid[row][col+3] = ship;
+          if (newGrid[row][col] === 0 && newGrid[row][col+1] === 0 && newGrid[row][col+2] === 0 && newGrid[row][col+3] === 0) {
+            newGrid[row][col] = ship;
+            newGrid[row][col+1] = ship;
+            newGrid[row][col+2] = ship;
+            newGrid[row][col+3] = ship;
+          }
           break;
         case 'Carrier':
           //Bateau de 4*2
-          newGrid[row][col] = ship;
-          newGrid[row][col+1] = ship;
-          newGrid[row][col+2] = ship;
-          newGrid[row][col+3] = ship;
-          newGrid[row+1][col] = ship;
-          newGrid[row+1][col+1] = ship;
-          newGrid[row+1][col+2] = ship;
-          newGrid[row+1][col+3] = ship;
+          if (newGrid[row][col] === 0 && newGrid[row][col+1] === 0 && newGrid[row][col+2] === 0 && newGrid[row][col+3] === 0 && newGrid[row+1][col] === 0 && newGrid[row+1][col+1] === 0 && newGrid[row+1][col+2] === 0 && newGrid[row+1][col+3] === 0) {
+            newGrid[row][col] = ship;
+            newGrid[row][col+1] = ship;
+            newGrid[row][col+2] = ship;
+            newGrid[row][col+3] = ship;
+            newGrid[row+1][col] = ship;
+            newGrid[row+1][col+1] = ship;
+            newGrid[row+1][col+2] = ship;
+            newGrid[row+1][col+3] = ship;
+          }
           break;
         default:
           // code block
