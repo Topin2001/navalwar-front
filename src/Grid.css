@@ -1,6 +1,8 @@
 .grid {
     display: flex;
     flex-wrap: wrap;
+    width: 400px;
+    height: 400px;
   }
   
   .row {
@@ -9,6 +11,7 @@
   
   .col {
     display: flex;
+    flex-wrap: wrap;
     width: 40px;
     height: 40px;
     border: 1px solid rgb(0, 0, 0);
