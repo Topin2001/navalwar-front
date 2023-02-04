@@ -60,7 +60,15 @@ const Grid = () => {
     const newGrid = [...grid];
 
     if (grid[row][col] !== 0) {
-      newGrid[row][col] = 0;
+      const deletingShip = grid[row][col];
+      for (let i = 0; i < grid_size; i++) {
+        for (let y = 0; y < grid_size; y++) {
+          if (grid[i][y] === deletingShip) {
+            grid[i][y] = 0;
+          }
+        }
+      }
+      ship.push(deletingShip);
     } else {
       if (selectedShip.ship == null) {
         const msg_error = document.getElementById("error_msg");
