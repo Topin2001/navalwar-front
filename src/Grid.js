@@ -1,5 +1,6 @@
 import "./Grid.css";
 import GridPlacement from "./GridPlacement";
+import GridPlay from "./GridPlay";
 import React, { useState } from "react";
 
 const Grid = () => {
@@ -20,12 +21,19 @@ const Grid = () => {
 
   const grid_size = 10;
 
-  if (Etat == 'Placement') {
+  if (Etat == "Placement") {
     return (
-        <GridPlacement grid={grid} grid_size={grid_size} setEtat={setEtat} setGrid={setGrid} />
+      <GridPlacement
+        grid={grid}
+        grid_size={grid_size}
+        setEtat={setEtat}
+        setGrid={setGrid}
+      />
     );
   } else {
-    //gestion de la partie
+    return (
+      <GridPlay />
+    );
   }
 };
 
