@@ -11,7 +11,7 @@ const Grid = () => {
   if (Etat == "Placement") {
     return <GridPlacement grid_size={grid_size} setEtat={setEtat} />;
   } else {
-    return <GridPlay />;
+    return <GridPlay grid_size={grid_size} />;
   }
 };
 
