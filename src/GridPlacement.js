@@ -1,3 +1,4 @@
+import "./Grid.css";
 import React, { useState } from "react";
 
 const GridPlacement = ({ grid_size, setEtat }) => {

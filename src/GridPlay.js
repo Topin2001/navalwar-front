@@ -1,6 +1,7 @@
+import "./Grid.css";
 import React, { useState } from "react";
 
-const GridPlay = ({grid_size}) => {
+const GridPlay = ({ grid_size, setEtat }) => {
   const [shipGrid, setShipGrid] = useState([
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, "Destroyer", "Destroyer", "Destroyer", 0, 0, 0, 0, 0],
@@ -64,7 +65,7 @@ const GridPlay = ({grid_size}) => {
     let newShipGrid = [...shipGrid];
     if (shipGrid[rowIndex][colIndex] !== 0) {
       checkShip(shipGrid[rowIndex][colIndex]);
-      newShipGrid[rowIndex][colIndex] = "Hit" + shipGrid[rowIndex][colIndex];
+      newShipGrid[rowIndex][colIndex] = "Hit";
     } else {
       newShipGrid[rowIndex][colIndex] = "Shot";
     }
@@ -81,11 +82,10 @@ const GridPlay = ({grid_size}) => {
       }
     }
     if (compteur === 1) {
-      console.log("Plus de " + ship)
+      console.log("Plus de " + ship);
+      setEtat("Win");
     }
   };
-
-
 
   return (
     <div>
