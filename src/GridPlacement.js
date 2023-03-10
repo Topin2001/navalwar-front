@@ -115,7 +115,7 @@ const GridPlacement = ({ setEtat, GameId, PlayerId }) => {
           <div className="row" key={rowIndex}>
             {row.map((col, colIndex) => (
               <div
-                className={`col ${col !== " " ? "hit" : ""}`}
+                className={`col ${col !== " " ? "place" : ""}`}
                 key={colIndex}
                 onClick={() => handlePlaceShip(rowIndex, colIndex)}
               >

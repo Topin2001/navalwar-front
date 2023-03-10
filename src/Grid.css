@@ -128,7 +128,23 @@ button {
 }
 
 .container .hit {
+  background-color: rgb(255, 149, 0);
+}
+
+.container .ship {
+  background-color: rgb(0, 255, 0);
+}
+
+.container .miss {
+  background-color: rgb(0, 140, 255);
+}
+
+.container .down {
   background-color: rgb(255, 0, 0);
+}
+
+.placement-container .place {
+  background-color: rgb(0, 255, 0);
 }
 
 .container .col:hover {

@@ -69,6 +69,21 @@ const GridPlay = ({ setEtat, PlayerId, GameId }) => {
       });
   };
 
+  const getClass = (col) => {
+    switch (col) {
+      case "V":
+        return "ship";
+      case "-":
+        return "miss";
+      case "X":
+        return "hit";
+      case "C":
+        return "down"
+      default:
+        return "default";
+    }
+  }  
+
   return (
     <div class="container">
       <div class="shipcontainer">
@@ -78,7 +93,7 @@ const GridPlay = ({ setEtat, PlayerId, GameId }) => {
             <div className="row" key={rowIndex}>
               {row.map((col, colIndex) => (
                 <div
-                  className={`col ${col !== " " ? "hit" : ""}`}
+                  className={`col ${getClass(col)}`}
                   key={colIndex}
                 >
                   {shipGrid[rowIndex][colIndex]}
@@ -97,7 +112,7 @@ const GridPlay = ({ setEtat, PlayerId, GameId }) => {
             <div className="row" key={rowIndex}>
               {row.map((col, colIndex) => (
                 <div
-                  className={`col ${col !== " " ? "hit" : ""}`}
+                  className={`col ${getClass(col)}`}
                   key={colIndex}
                   onClick={() => handleShot(rowIndex, colIndex)}
                 >

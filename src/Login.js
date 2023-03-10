@@ -49,8 +49,8 @@ const Login = ({ setEtat, setGameId, GameId, setPlayerId }) => {
       <h1>Choisissez une option :</h1>
       <button onClick={handleCreateGame}>Créer une nouvelle partie</button>
       <div>
+        Rejoindre une partie :
         <label>
-          Rejoindre une partie :
           <input type="text" onChange={(e) => setGameId(e.target.value)} />
         </label>
         <button onClick={handleJoinGame}>Rejoindre</button>
