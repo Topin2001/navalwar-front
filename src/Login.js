@@ -1,57 +1,52 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
 
-const Login = ({ setEtat }) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [isRegistering, setIsRegistering] = useState(false);
 
-  const handleUsernameChange = (event) => {
-    setUsername(event.target.value);
-  };
+const Login = ({ setEtat, setGameId, setPlayerId }) => {
 
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
-
-  const handleLogin = (event) => {
+  const handleCreateGame = async (event) => {
     event.preventDefault();
-    setEtat("Placement");
+
+    try {
+      const response = await fetch('https://localhost:7080/api/GameArea/create', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to create game.');
+      }
+
+      const data = await response.json();
+      console.log(data);
+      setGameId(data);
+      setPlayerId(1);
+      setEtat('Placement');
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  const handleRegister = (event) => {
+  const handleJoinGame = (event) => {
     event.preventDefault();
     setEtat("Placement");
   };
 
   return (
-    <div className="login">
-      <h1>{isRegistering ? "Register" : "Login"}</h1>
-      <form onSubmit={isRegistering ? handleRegister : handleLogin}>
-        <label htmlFor="username">Username:</label>
-        <input
-          type="text"
-          id="username"
-          value={username}
-          onChange={handleUsernameChange}
-        />
-        <br />
-        <label htmlFor="password">Password:</label>
-        <input
-          type="password"
-          id="password"
-          value={password}
-          onChange={handlePasswordChange}
-        />
-        <br />
-        <button type="submit">{isRegistering ? "Register" : "Login"}</button>
-      </form>
-      <button onClick={() => setIsRegistering(!isRegistering)}>
-        {isRegistering
-          ? "Already have an account? Login"
-          : "Don't have an account? Register"}
-      </button>
+<div>
+      <h1>Choisissez une option :</h1>
+      <button onClick={handleCreateGame}>Créer une nouvelle partie</button>
+      <div>
+        <label>
+          Rejoindre une partie :
+          <input type="text" onChange={(e) => setGameId(e.target.value)} />
+        </label>
+        <button onClick={handleJoinGame}>Rejoindre</button>
+      </div>
     </div>
   );
 };
 
 export default Login;
+

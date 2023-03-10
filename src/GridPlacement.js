@@ -1,43 +1,36 @@
 import "./Grid.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const GridPlacement = ({ grid_size, setEtat }) => {
-  const [grid, setGrid] = useState([
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  ]);
+const GridPlacement = ({ setEtat, GameId, PlayerId }) => {
+  const [grid, setGrid] = useState([]);
+
+  useEffect(() => {
+    fetch(`https://localhost:7080/api/GameArea?gameId=${GameId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setGrid(data[PlayerId - 1].shipBoard);
+      })
+      .catch((error) => {
+        console.error("Error fetching grid:", error);
+      });
+  });
+
+  useEffect(() => {
+    fetch(`https://localhost:7080/api/GameArea/state?gameId=${GameId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        const state = data.state;
+        setEtat(state);
+      });
+  }, []);
 
   const [ship] = useState([
     "Destroyer",
     "Cruiser",
     "Submarine",
-    "Battleship",
-    "Carrier",
+    "BattleShip",
+    "AircraftCarrier",
   ]);
-
-  const shipSizes = {
-    Destroyer: 3,
-    Cruiser: 3,
-    Submarine: 2,
-    Battleship: 4,
-    Carrier: 4,
-  };
-
-  const shipWidth = {
-    Destroyer: 1,
-    Cruiser: 1,
-    Submarine: 1,
-    Battleship: 1,
-    Carrier: 2,
-  };
 
   const [selectedShip, setSelectedShip] = useState({
     ship: null,
@@ -61,85 +54,52 @@ const GridPlacement = ({ grid_size, setEtat }) => {
   };
 
   const handlePlaceShip = (row, col) => {
-    const newGrid = [...grid];
+    console.log(selectedShip.ship);
 
-    if (grid[row][col] !== 0) {
-      const deletingShip = grid[row][col];
-      for (let i = 0; i < grid_size; i++) {
-        for (let y = 0; y < grid_size; y++) {
-          if (grid[i][y] === deletingShip) {
-            grid[i][y] = 0;
-          }
+    if (selectedShip.ship !== null) {
+      fetch(
+        `https://localhost:7080/api/GameArea?gameId=${GameId}&player=${PlayerId}&x=${row}&y=${col}&horizontal=${
+          selectedShip.rotation !== "horizontal"
+        }&type=${selectedShip.ship}`,
+        {
+          method: "POST",
         }
-      }
-      ship.push(deletingShip);
-    } else {
-      if (selectedShip.ship == null) {
-        const msg_error = document.getElementById("error_msg");
-        msg_error.innerHTML = "Merci de choisir un bateau à placer !";
-        return;
-      }
-      if (selectedShip.rotation === "horizontal") {
-        let canPlace = true;
-        for (let i = 0; i < shipSizes[selectedShip.ship]; i++) {
-          for (let y = 0; y < shipWidth[selectedShip.ship]; y++) {
-            if (
-              col + i >= grid_size ||
-              row + y >= grid_size ||
-              newGrid[row + y][col + i] !== 0
-            ) {
-              canPlace = false;
-              break;
-            }
-          }
-        }
-
-        if (canPlace) {
-          for (let i = 0; i < shipSizes[selectedShip.ship]; i++) {
-            for (let y = 0; y < shipWidth[selectedShip.ship]; y++) {
-              newGrid[row + y][col + i] = selectedShip.ship;
-            }
-          }
-          ship.splice(ship.indexOf(selectedShip.ship), 1);
+      )
+        .catch((error) => console.error("Error placing ship:", error))
+        .then(
           setSelectedShip((prevState) => ({
             ship: null,
             rotation: prevState.rotation,
-          }));
-        }
-      } else {
-        let canPlace = true;
-        for (let i = 0; i < shipSizes[selectedShip.ship]; i++) {
-          for (let y = 0; y < shipWidth[selectedShip.ship]; y++) {
-            if (
-              row + i >= grid_size ||
-              col + y >= grid_size ||
-              newGrid[row + i][col + y] !== 0
-            ) {
-              canPlace = false;
-              break;
-            }
-          }
-        }
-
-        if (canPlace) {
-          for (let i = 0; i < shipSizes[selectedShip.ship]; i++) {
-            for (let y = 0; y < shipWidth[selectedShip.ship]; y++) {
-              newGrid[row + i][col + y] = selectedShip.ship;
-            }
-          }
-          ship.splice(ship.indexOf(selectedShip.ship), 1);
-          setSelectedShip((prevState) => ({
-            ship: null,
-            rotation: prevState.rotation,
-          }));
-        }
-      }
-      if (ship.length == 0) {
-        setEtat("Jeux");
-      }
+          }))
+        )
+        .then(() => {
+          /*Vérification pour passer à la suite et mettre à jour le tableau (pas le faire en continue comme mtn)
+          
+          fetch(`https://localhost:7080/api/GameArea/ready?gameId=${GameId}&player=${PlayerId}`)
+            .then((response) => response.json())
+            .then((data) => {
+              const state = data.state;
+              setEtat(state);
+            })
+            .catch((error) => {
+              console.error("Error fetching game state:", error);
+            });
+  
+          fetch(`https://localhost:7080/api/GameArea?gameId=${GameId}`)
+            .then((response) => response)
+            .then((data) => {
+              setGrid(data[PlayerId - 1].shipBoard);
+            })
+            .catch((error) => {
+              console.error("Error fetching grid:", error);
+            });*/
+        })
+        .catch((error) => {
+          console.error("Error fetching game state and grid:", error);
+        });
     }
-    setGrid(newGrid);
   };
+
   return (
     <div>
       <h2>Placement des bateaux</h2>
@@ -157,7 +117,7 @@ const GridPlacement = ({ grid_size, setEtat }) => {
           <div className="row" key={rowIndex}>
             {row.map((col, colIndex) => (
               <div
-                className={`col ${col !== 0 ? "hit" : ""}`}
+                className={`col ${col !== " " ? "hit" : ""}`}
                 key={colIndex}
                 onClick={() => handlePlaceShip(rowIndex, colIndex)}
               >
