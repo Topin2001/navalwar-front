@@ -1,10 +1,10 @@
-.loose-page div {
-    text-align: center;
-    margin: 50px auto;
-    max-width: 500px;
-    padding: 20px;
-    background-color: #f5f5f5;
-    border-radius: 10px;
+.loose-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f2f2f2;
   }
   
   .loose-page h1 {

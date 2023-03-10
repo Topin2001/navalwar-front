@@ -1,3 +1,7 @@
+body {
+  background-color: #f2f2f2;
+}
+
 .grid {
   display: flex;
   flex-wrap: wrap;
@@ -15,20 +19,17 @@
   width: 40px;
   height: 40px;
   border: 1px solid rgb(0, 0, 0);
-  background-color: rgb(211, 211, 211);
-}
-
-.hit {
-  background-color: rgb(255, 0, 0);
 }
 
 .container {
   display: flex;
   justify-content: center;
   flex-direction: row;
+  background-color: #f2f2f2;
 }
 
-.shipcontainer, .shotcontainer {
+.shipcontainer,
+.shotcontainer {
   display: flex;
   text-align: center;
   flex-direction: column;
@@ -37,4 +38,99 @@
 .shipgrid,
 .shotgrid {
   margin: 0 20px;
+}
+
+.placement-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f2f2f2;
+}
+
+.placement-container h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.placement-container h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.placement-container p {
+  margin-bottom: 0.5rem;
+}
+
+button {
+  font-size: 1rem;
+  padding: 0.5rem 0.7rem;
+  margin-bottom: 0.5rem;
+  border-radius: 5px;
+  background-color: #2196f3;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.shipselect {
+  display: flex;
+  flex-direction: row;
+}
+
+.placement-container button:hover {
+  background-color: #0d8bf2;
+}
+
+.placement-container .row {
+  display: flex;
+  flex-direction: row;
+}
+
+.placement-container .col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  background-color: #fff;
+  border: 2px solid #777;
+  transition: all 0.3s ease;
+}
+
+.col:hover {
+  background-color: #ccc;
+}
+
+.placement-container .hit {
+  background-color: rgb(255, 0, 0);
+}
+
+.container button:hover {
+  background-color: #0d8bf2;
+}
+
+.container .row {
+  display: flex;
+  flex-direction: row;
+}
+
+.container .col {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  background-color: #fff;
+  border: 2px solid #777;
+  transition: all 0.3s ease;
+}
+
+.container .hit {
+  background-color: rgb(255, 0, 0);
+}
+
+.container .col:hover {
+  background-color: #ccc;
 }

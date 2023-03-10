@@ -96,14 +96,16 @@ const GridPlacement = ({ setEtat, GameId, PlayerId }) => {
   };
 
   return (
-    <div>
+    <div class="placement-container">
       <h2>Placement des bateaux</h2>
       <h3>Game ID : {GameId}</h3>
-      {ship.map((navire) => (
-        <button key={navire} onClick={() => handleSelectShip(navire)}>
-          {navire}
-        </button>
-      ))}
+      <div class="shipselect">
+        {ship.map((navire) => (
+          <button key={navire} onClick={() => handleSelectShip(navire)}>
+            {navire}
+          </button>
+        ))}
+      </div>
       <p>Selected Ship: {selectedShip.ship}</p>
       <button onClick={handleRotateShip}>Rotate Ship</button>
       <p>Rotation sens: {selectedShip.rotation}</p>
