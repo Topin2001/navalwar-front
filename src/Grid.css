@@ -1,104 +1,40 @@
 .grid {
-    display: flex;
-    flex-wrap: wrap;
-    width: 360px;
-    height: 360px;
-  }
-  
-  .row {
-    display: flex;
-  }
-  
-  .col {
-    display: flex;
-    flex-wrap: wrap;
-    width: 40px;
-    height: 40px;
-    border: 1px solid rgb(0, 0, 0);
-    background-color: rgb(211, 211, 211);
-  }
-  
-  .hit {
-    background-color: rgb(255, 0, 0);
-  }
-  
-  .login body {
-    font-family: sans-serif;
-    background-color: #f2f2f2;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .login .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  
-  .login form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 30px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .login label {
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
-  .login input {
-    border: none;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 20px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-    width: 100%;
-  }
-  
-  .login button {
-    background-color: #2c3e50;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    margin-top: 20px;
-    cursor: pointer;
-  }
-  
-  .login button:hover {
-    background-color: #34495e;
-  }
-  
-  .login button:focus {
-    outline: none;
-  }
-  
-  .login h1 {
-    text-align: center;
-    margin-bottom: 30px;
-  }
-  
-  .login .switch {
-    text-align: center;
-    margin-top: 20px;
-  }
-  
-  .login .switch button {
-    background-color: transparent;
-    border: none;
-    color: #2c3e50;
-    text-decoration: underline;
-    cursor: pointer;
-    margin-left: 5px;
-  }
-  
-  .login .switch button:hover {
-    color: #34495e;
-  }
-  
+  display: flex;
+  flex-wrap: wrap;
+  width: 360px;
+  height: 360px;
+}
+
+.row {
+  display: flex;
+}
+
+.col {
+  display: flex;
+  flex-wrap: wrap;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgb(0, 0, 0);
+  background-color: rgb(211, 211, 211);
+}
+
+.hit {
+  background-color: rgb(255, 0, 0);
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.shipcontainer, .shotcontainer {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+}
+
+.shipgrid,
+.shotgrid {
+  margin: 0 20px;
+}

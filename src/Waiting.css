@@ -1,0 +1,25 @@
+.waiting-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f2f2f2;
+}
+
+.waiting-page h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.waiting-page h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.waiting-page p {
+  font-size: 1.2rem;
+  text-align: center;
+  max-width: 80%;
+  margin-bottom: 2rem;
+}

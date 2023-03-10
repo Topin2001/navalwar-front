@@ -1,0 +1,32 @@
+.Login button {
+  background-color: #4caf50; /* couleur de fond */
+  border: none; /* pas de bordure */
+  color: white; /* couleur du texte */
+  padding: 10px 20px; /* espacement du contenu à l'intérieur */
+  text-align: center; /* centrage du texte */
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px; /* taille de la police */
+  margin: 10px; /* espacement des marges */
+  cursor: pointer; /* curseur lors du survol */
+}
+
+.Login label {
+  display: block; /* affichage en bloc */
+  margin-bottom: 10px; /* espacement des marges */
+}
+
+.Login input[type="text"] {
+  padding: 10px; /* espacement du contenu à l'intérieur */
+  border: 1px solid #ccc; /* bordure */
+  border-radius: 4px; /* arrondissement des coins */
+  box-sizing: border-box;
+  margin-bottom: 10px; /* espacement des marges */
+  width: 100%; /* largeur à 100% */
+}
+
+.Login h1 {
+  font-size: 24px; /* taille de la police */
+  margin-bottom: 20px; /* espacement des marges */
+  text-align: center; /* centrage du texte */
+}

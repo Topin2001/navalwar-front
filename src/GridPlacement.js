@@ -5,23 +5,18 @@ const GridPlacement = ({ setEtat, GameId, PlayerId }) => {
   const [grid, setGrid] = useState([]);
 
   useEffect(() => {
-    fetch(`https://localhost:7080/api/GameArea?gameId=${GameId}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setGrid(data[PlayerId - 1].shipBoard);
-      })
-      .catch((error) => {
-        console.error("Error fetching grid:", error);
-      });
-  });
+    const intervalId = setInterval(() => {
+      fetch(`https://localhost:7080/api/GameArea?gameId=${GameId}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setGrid(data[PlayerId - 1].shipBoard);
+        })
+        .catch((error) => {
+          console.error("Error fetching grid:", error);
+        });
+    }, 500); // la valeur de 2000 représente le délai de 2 secondes entre chaque appel de la fonction fetch
 
-  useEffect(() => {
-    fetch(`https://localhost:7080/api/GameArea/state?gameId=${GameId}`)
-      .then((response) => response.json())
-      .then((data) => {
-        const state = data.state;
-        setEtat(state);
-      });
+    return () => clearInterval(intervalId); // nettoyer l'intervalle pour éviter les fuites de mémoire
   }, []);
 
   const [ship] = useState([
@@ -66,33 +61,33 @@ const GridPlacement = ({ setEtat, GameId, PlayerId }) => {
         }
       )
         .catch((error) => console.error("Error placing ship:", error))
-        .then(
-          setSelectedShip((prevState) => ({
-            ship: null,
-            rotation: prevState.rotation,
-          }))
-        )
+        .then((data) => {
+          if (data.status !== 200) {
+            console.log("Problème");
+          } else {
+            ship.splice(ship.indexOf(selectedShip.ship), 1);
+            setSelectedShip((prevState) => ({
+              ship: null,
+              rotation: prevState.rotation,
+            }));
+          }
+        })
         .then(() => {
-          /*Vérification pour passer à la suite et mettre à jour le tableau (pas le faire en continue comme mtn)
-          
-          fetch(`https://localhost:7080/api/GameArea/ready?gameId=${GameId}&player=${PlayerId}`)
-            .then((response) => response.json())
-            .then((data) => {
-              const state = data.state;
-              setEtat(state);
+          fetch(
+            `https://localhost:7080/api/GameArea/ready?gameId=${GameId}&player=${PlayerId}`
+          )
+            .then((response) => {
+              console.log(response);
+              if (response.status === 200) {
+                console.log("Ready");
+                setEtat("Waiting");
+              } else {
+                console.log("Not Ready");
+              }
             })
             .catch((error) => {
               console.error("Error fetching game state:", error);
             });
-  
-          fetch(`https://localhost:7080/api/GameArea?gameId=${GameId}`)
-            .then((response) => response)
-            .then((data) => {
-              setGrid(data[PlayerId - 1].shipBoard);
-            })
-            .catch((error) => {
-              console.error("Error fetching grid:", error);
-            });*/
         })
         .catch((error) => {
           console.error("Error fetching game state and grid:", error);
@@ -103,6 +98,7 @@ const GridPlacement = ({ setEtat, GameId, PlayerId }) => {
   return (
     <div>
       <h2>Placement des bateaux</h2>
+      <h3>Game ID : {GameId}</h3>
       {ship.map((navire) => (
         <button key={navire} onClick={() => handleSelectShip(navire)}>
           {navire}
